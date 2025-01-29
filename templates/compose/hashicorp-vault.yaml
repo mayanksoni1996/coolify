@@ -1,0 +1,16 @@
+# documentation: https://hub.docker.com/r/hashicorp/vault
+# slogan: Secure, store, and tightly control access to tokens, passwords, certificates, and encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.
+services:
+  vault:
+    image: 'hashicorp/vault:latest'
+    ports:
+      - "8200"
+    volumes:
+      - vault_data:/vault/data
+      - vault_config:/vault/config
+    environment:
+      - SERVICE_FQDN_VAULT_8200
+      - VAULT_LOCAL_CONFIG
+    command: ["vault", "server" ,"-config=/vault/config/local.json"]
+    cap_add:
+      - IPC_LOCK
